@@ -45,3 +45,10 @@ button:last-child {
 button:last-child:hover {
   background-color: #1a252f;
 }
+
+.price {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
