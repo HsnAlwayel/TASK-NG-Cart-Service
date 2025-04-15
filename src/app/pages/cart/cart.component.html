@@ -1,3 +1,20 @@
 <div class="cart-container">
   <h2>Your Cart 🛒</h2>
+  @if (cartItems.length > 0) {
+  <h3>Total Price: {{ totalPrice | currency : "KWD" }}</h3>
+  <button (click)="clearCart()">Clear All</button>
+  <div class="cart-list">
+    @for (item of cartItems; track item.product.id) {
+    <app-product-card
+      [product]="item.product"
+      [quantity]="item.quantity"
+      [isInCart]="true"
+      (removeFromCartEvent)="onRemoveFromCart()"
+      (incrementQuantityEvent)="onIncrementQuantity()"
+    ></app-product-card>
+    }
+  </div>
+  } @else {
+  <h3>Your cart is empty</h3>
+  }
 </div>

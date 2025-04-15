@@ -2,16 +2,33 @@
   <img [src]="product.image" [alt]="product.name" />
   <h3>{{ product.name }}</h3>
   <p>{{ product.description }}</p>
-  <p>
-    <strong>KWD {{ product.price }}</strong>
+  @if(isInCart && quantity){
+  <p class="price">
+    <strong> {{ product.price | currency : "KWD" }}</strong>
+    <span>X</span>
+    <span>{{ quantity }}</span>
+    <span>=</span>
+    <span>{{ product.price * quantity | currency : "KWD" }}</span>
   </p>
-  @if (product.stock) {
+  <button (click)="removeFromCart()">Remove</button>
+  } @else {
+  <p>
+    <strong> {{ product.price | currency : "KWD" }}</strong>
+  </p>
+  } @if (isInCart) {
+  <div class="actions">
+    <button (click)="decrementQuantity()">-</button>
+    <p>{{ quantity }}</p>
+    <button (click)="incrementQuantity()">+</button>
+  </div>
+  } @else { @if (product.stock) {
   <p>In stock: {{ product.stock }}</p>
   } @else {
   <p class="out-of-stock">Out of Stock</p>
-  }
+  } } @if (!isInCart) {
   <div class="actions">
-    <button>Add to Cart</button>
+    <button (click)="addToCart(product)">Add to Cart</button>
     <button [routerLink]="['/products', product.id]">View Product</button>
   </div>
+  }
 </div>
